@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory} from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
+import { IngredientSchema } from './ingredient.schema.js';
 
 export type RecipeDocument = HydratedDocument<Recipe>
 
@@ -19,23 +20,20 @@ export class Recipe {
     @Prop()
     servings: number
 
-    @Prop({
-        type: [
-            {
-                name: String,
-                quantity: String,
-            },
-        ],
-        required: true,
-    })
+    @Prop({type: [IngredientSchema],required: true})
     ingredients: {
         name: string;
         quantity: string
     }[];
 
+  @Prop({type: [String], required: true })
+  instructions: string[];
   
+  @Prop({ type: Date, default: Date.now, immutable: true })
+  createdAt: Date;
 
-    @Prop({type: Date, default: Date.now, immutable:true})
-    createdAt: Date
-
+  @Prop()
+  updatedAt: Date;
 }
+
+export const RecipeSchema = SchemaFactory.createForClass(Recipe)

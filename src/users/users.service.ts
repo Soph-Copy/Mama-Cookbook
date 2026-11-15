@@ -9,7 +9,7 @@ import { User, UserDocument } from './schema/user.schema.js';
 export class UsersService {
   constructor(
   @InjectModel(User.name)  
-  private userModel: Model<UserDocument>, ){}
+  private userModel: Model<UserDocument>){}
 
   async create(userData: Partial<User>) {
     const newUser = new this.userModel(userData)
