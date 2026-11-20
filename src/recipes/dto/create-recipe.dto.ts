@@ -4,6 +4,7 @@ import { IngredientDto } from "./ingredients.dto.js";
 
 export class CreateRecipeDto {
   @IsString()
+  @IsNotEmpty()
   @Transform(({value }) => value.trim())
   title: string;
 
@@ -16,7 +17,7 @@ export class CreateRecipeDto {
 
   @IsString()
   prepTime: string;
-  
+   
   @IsString()
   cookTime: string;
   

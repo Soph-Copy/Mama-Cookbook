@@ -2,6 +2,8 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { UsersService } from './users.service.js';
 import { CreateUserDto } from './dto/create-user.dto.js';
 import { UpdateUserDto } from './dto/update-user.dto.js';
+import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { User } from './schema/user.schema.js';
 
 @Controller('users')
 export class UsersController {
@@ -14,7 +16,9 @@ export class UsersController {
   }
 
   @Get()
-  findAll() {
+  @ApiOperation({ summary: 'Get all users' })
+  @ApiResponse({status: 200, description: 'Successfully retrieved all users', type:[CreateUserDto]})
+  async findAll(): Promise<User[]> {
     return this.usersService.findAll();
   }
 
